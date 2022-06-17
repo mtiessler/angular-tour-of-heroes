@@ -1,7 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 
-import { HEROES } from "../mock-heroes";
+import {HeroService} from "../hero.service";
 import {Hero} from "../hero";
+
 
 @Component({
   selector: 'app-heroes',
@@ -9,11 +10,19 @@ import {Hero} from "../hero";
   styleUrls: ['./heroes.component.css']
 })
 export class HeroesComponent implements OnInit {
-  heroes = HEROES;
-  selectedHero?: Hero;
-  constructor() { }
+  heroList!: Hero [];
+  selectedHero?: Hero
+  constructor(private heroService: HeroService ) {
+    // this.heroList = heroService.getHeroes(); MAL CONSTRUCTOR TIENE QUE SER PARA INICIALIZACIÓN BÁSICA
+  }
 
   ngOnInit(): void {
+    this.getHeroes();
+  }
+
+  getHeroes(): void
+  {
+    this.heroList = this.heroService.getHeroes()
   }
 
   onSelect(hero: Hero): void
